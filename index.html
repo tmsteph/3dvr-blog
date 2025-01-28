@@ -65,6 +65,25 @@
             bottom: 0;
             width: 100%;
         }
+        #contact-form {
+            margin-top: 1rem;
+        }
+        #contact-form input, #contact-form textarea, #contact-form button {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #contact-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #contact-form button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -73,29 +92,52 @@
         <p>Exploring ergonomic workstations and the power of open-source solutions</p>
     </header>
     <nav>
-        <a href="#">Home</a>
+        <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
     </nav>
-    <div class="container">
+    <div class="container" id="home">
         <article>
             <h2>Why Ergonomics Matter</h2>
             <p>Comfortable workstations can improve productivity, reduce strain, and enhance overall well-being.</p>
-            <p><a href="#">Read more...</a></p>
+            <p><a href="#contact">Get in touch to learn more!</a></p>
         </article>
         <article>
             <h2>The Case for Open-Source Solutions</h2>
             <p>Open-source designs offer customization, affordability, and community-driven improvements.</p>
-            <p><a href="#">Read more...</a></p>
+            <p><a href="#about">Find out why this matters.</a></p>
         </article>
         <article>
             <h2>Top Current Ergonomic Tools</h2>
             <p>Discover the best tools and accessories for an ergonomic workstation setup.</p>
-            <p><a href="#">Read more...</a></p>
+            <p><a href="#contact">Contact us to share your favorites.</a></p>
         </article>
+    </div>
+    <div class="container" id="about">
+        <h2>About Us</h2>
+        <p>We are 3DVR Tech, committed to creating ergonomic and open-source solutions for a better workspace experience.</p>
+        <p>Our mission is to empower individuals with tools and knowledge to build their own ergonomic setups using open-source technologies.</p>
+    </div>
+    <div class="container" id="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
     </div>
     <footer>
         <p>&copy; 2025 3DVR Tech Blog. All rights reserved.</p>
     </footer>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+        });
+    </script>
 </body>
 </html>
