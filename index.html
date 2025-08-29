@@ -1,143 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A blog exploring ergonomic workstation options and advocating for open-source solutions.">
-    <title>3DVR Tech Blog</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-        nav {
-            background: #0056b3;
-            color: white;
-            padding: 0.5rem 0;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        article {
-            margin-bottom: 2rem;
-        }
-        article h2 {
-            color: #007bff;
-            margin-bottom: 0.5rem;
-        }
-        article p {
-            margin: 0.5rem 0;
-        }
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            background-color: #333;
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        #contact-form {
-            margin-top: 1rem;
-        }
-        #contact-form input, #contact-form textarea, #contact-form button {
-            width: 100%;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        #contact-form button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        #contact-form button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="3DVR Tech Blog — ergonomics × open-source. Notes, guides, and updates." />
+  <title>3DVR Tech Blog</title>
+  <link rel="icon" href="/favicon.png" />
+  <meta property="og:title" content="3DVR Tech Blog" />
+  <meta property="og:description" content="Ergonomics × open-source. Notes, guides, and updates." />
+  <meta property="og:type" content="website" />
+  <style>
+    :root{
+      --bg:#0e1117; --surface:#151a26; --text:#e8eefc; --muted:#9aa4b2;
+      --brand:#0ea5ff; --brand-2:#8b5cf6; --accent:#f59e0b;
+      --ring:rgba(14,165,255,.35); --radius:14px;
+      --shadow:0 8px 30px rgba(2,6,23,.12), 0 2px 8px rgba(2,6,23,.08);
+      --shadow-soft:0 10px 24px rgba(0,0,0,.08);
+      --header-h:64px; --safe-top:env(safe-area-inset-top); --safe-bottom:env(safe-area-inset-bottom);
+      --max:1120px;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth; scroll-padding-top: calc(var(--header-h) + 12px)}
+    body{
+      margin:0; max-width:100%; overflow-x:hidden;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(14,165,255,.12), transparent 60%),
+        radial-gradient(900px 500px at -10% 20%, rgba(139,92,246,.12), transparent 60%),
+        var(--bg);
+    }
+
+    /* Utility bar */
+    .utility{
+      display:flex;justify-content:center;align-items:center;gap:.75rem;
+      padding: calc(.5rem + var(--safe-top)) 1rem .5rem;
+      color:#fff; font-size:.9rem;
+      background: linear-gradient(90deg, rgba(14,165,255,.7), rgba(139,92,246,.7));
+      backdrop-filter:saturate(140%) blur(6px);
+    }
+    .utility a{color:#fff;text-decoration:underline dotted}
+    .utility .cta{background:#fff;color:#111827;text-decoration:none;padding:.35rem .7rem;border-radius:999px;font-weight:600}
+
+    /* Header / Nav */
+    header{position:sticky;top:0;z-index:50;background:rgba(15,18,28,.6);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.5rem 1rem}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.3px;color:#fff;text-decoration:none}
+    .brand .dot{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#0ea5ff 50%,#8b5cf6 100%);box-shadow:0 0 18px #0ea5ff}
+    .nav a{color:#e5e7eb;text-decoration:none;padding:.4rem .6rem;border-radius:10px}
+    .nav a:hover{background:rgba(255,255,255,.07)}
+    .nav a.active{background:rgba(14,165,255,.22);outline:1px solid rgba(14,165,255,.35)}
+
+    /* Hero */
+    .hero{max-width:var(--max);margin:1rem auto 0; padding:1.25rem 1rem 0; display:grid;grid-template-columns:1.1fr .9fr;gap:1.25rem;align-items:center}
+    @media (max-width:900px){ .hero{grid-template-columns:1fr} }
+    .hero h1{margin:.2rem 0 .4rem; font-size: clamp(1.8rem, 4.5vw, 3rem); line-height:1.1; color:#fff}
+    .hero p{color:#c7d2fe; max-width:65ch; margin:.4rem 0 1rem}
+    .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;border-radius:12px;padding:.65rem .95rem;font-weight:600;transition: transform .08s ease, box-shadow .2s ease, background .2s ease; box-shadow: var(--shadow-soft)}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{color:#0b1220;background:linear-gradient(180deg,#e9f6ff,#bfe7ff);border:1px solid #9ad9ff}
+    .btn.primary:hover{box-shadow:0 12px 28px rgba(14,165,255,.25)}
+    .btn.ghost{color:#e6ecff;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06)}
+    .btn.ghost:hover{background:rgba(255,255,255,.12)}
+    .mock{border-radius: 14px; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.12); height: 240px; position:relative; overflow:hidden; box-shadow: var(--shadow)}
+    .mock::after{content:"3DVR Blog"; position:absolute;inset:0;display:grid;place-items:center;color:#dbeafe;font-weight:700;letter-spacing:.4px;text-shadow:0 2px 18px rgba(14,165,255,.35)}
+
+    /* Layout / Posts */
+    .container{max-width:var(--max);margin:1.5rem auto;padding:0 1rem}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem}
+    @media (max-width:1000px){.grid{grid-template-columns:1fr}}
+    .section h2{color:#e7f5ff; font-size: clamp(1.5rem, 3vw, 1.9rem); margin:0 0 .5rem}
+    .section p{color:#cbd5e1; max-width:70ch}
+
+    .post{
+      background:var(--surface); border:1px solid rgba(14,165,255,.10);
+      border-radius:14px; padding:1rem 1.1rem; box-shadow:var(--shadow);
+      margin-bottom:1rem;
+    }
+    .post h3{margin:.1rem 0 .35rem; font-size:1.15rem; color:#8bd0ff}
+    .meta{font-size:.9rem;color:#9aa4b2;margin:.2rem 0 .6rem}
+    .post p{margin:.35rem 0;color:#cbd5e1}
+    .post a{color:#9ed2ff}
+
+    .sidebar .panel{
+      background:var(--surface); border:1px solid rgba(14,165,255,.10);
+      border-radius:14px; padding:1rem 1.1rem; box-shadow:var(--shadow); margin-bottom:1rem;
+    }
+    .panel h4{margin:.1rem 0 .5rem; color:#e7f5ff}
+    .list{list-style:none;padding:0;margin:0}
+    .list li{margin:.35rem 0}
+    .list a{color:#cbd5e1;text-decoration:none}
+    .list a:hover{text-decoration:underline}
+
+    /* Forms & Footer */
+    form label{display:block;margin:.25rem 0 .25rem;font-weight:600}
+    input,textarea,button{width:100%;padding:.7rem .8rem;margin:.25rem 0 .7rem;border-radius:12px;border:1px solid #2b3550;background:#0f1729;color:#e5e7eb}
+    input:focus,textarea:focus{outline:2px solid var(--ring);border-color:#93caff}
+    button{background:linear-gradient(180deg,#1fb6ff,#0ea5ff);color:#071521;border:none;font-weight:800;letter-spacing:.2px;cursor:pointer;box-shadow:0 10px 20px rgba(14,165,255,.25)}
+    button:hover{filter:brightness(1.05)}
+    .mini{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.3rem}
+    .mini a{font-size:.9rem;color:#cbd5e1}
+    footer{margin-top:1.5rem;padding:1.5rem 1rem calc(1.5rem + var(--safe-bottom));text-align:center;color:#c7d2fe}
+    footer a{color:#fff}
+
+    /* Anchor targets compensate for sticky header */
+    #home,#posts,#contact{scroll-margin-top: calc(var(--header-h) + 16px)}
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to 3DVR Tech Blog</h1>
-        <p>Exploring ergonomic workstations and the power of open-source solutions</p>
-    </header>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+  <!-- Utility -->
+  <div class="utility">
+    <span>3DVR Tech Blog — ergonomics × open-source.</span>
+    <a class="cta" href="https://3dvr.tech/subscribe/">Subscribe $20/mo</a>
+  </div>
+
+  <!-- Nav -->
+  <header id="site-header">
+    <nav class="nav">
+      <a class="brand" href="https://3dvr.tech/"><span class="dot"></span>3DVR Tech</a>
+      <a href="#home" data-nav>Blog Home</a>
+      <a href="#posts" data-nav>Posts</a>
+      <a href="#contact" data-nav>Contact</a>
+      <a href="https://3dvr.tech/apps/" title="App Designs">Apps</a>
+      <a href="https://3dvr.tech/support/" title="Support">Support</a>
+      <a href="https://3dvr.tech/community/" title="Community">Community</a>
+      <a href="https://portal.3dvr.tech" title="Member Portal">Portal</a>
     </nav>
-    <div class="container" id="home">
-        <article>
-            <h2>Why Ergonomics Matter</h2>
-            <p>Comfortable workstations can improve productivity, reduce strain, and enhance overall well-being.</p>
-            <p><a href="#contact">Get in touch to learn more!</a></p>
-        </article>
-        <article>
-            <h2>The Case for Open-Source Solutions</h2>
-            <p>Open-source designs offer customization, affordability, and community-driven improvements.</p>
-            <p><a href="#about">Find out why this matters.</a></p>
-        </article>
-        <article>
-            <h2>Top Current Ergonomic Tools</h2>
-            <p>Discover the best tools and accessories for an ergonomic workstation setup.</p>
-            <p><a href="#contact">Contact us to share your favorites.</a></p>
-        </article>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div>
+      <h1>The 3DVR Tech Blog</h1>
+      <p>Notes, experiments, and guides as we build open, ergonomic computing — in public.</p>
+      <div class="actions">
+        <a class="btn primary" href="#posts">Read Posts →</a>
+        <a class="btn ghost" href="https://3dvr.tech/">Main Site</a>
+      </div>
     </div>
-    <div class="container" id="about">
-        <h2>About Us</h2>
-        <p>We are 3DVR Tech, committed to creating ergonomic and open-source solutions for a better workspace experience.</p>
-        <p>Our mission is to empower individuals with tools and knowledge to build their own ergonomic setups using open-source technologies.</p>
+    <div class="mock" aria-hidden="true"></div>
+  </section>
+
+  <!-- Body -->
+  <main class="container">
+    <div class="grid">
+      <section class="section">
+        <h2 id="posts">Latest Posts</h2>
+
+        <!-- POST 1 -->
+        <article class="post" id="post-ergonomics">
+          <h3>Why Ergonomics Matter</h3>
+          <div class="meta">August 29, 2025 • 3 min read • Ergonomics</div>
+          <p>Reduce strain, boost focus, and build flow with setups that fit your body — wherever you work. Here’s our quick-start checklist for posture, placement, and micro-breaks.</p>
+          <p><a href="#post-ergonomics">Permalink</a> • <a href="#contact">Ask for a quick audit</a></p>
+        </article>
+
+        <!-- POST 2 -->
+        <article class="post" id="post-open-source">
+          <h3>The Case for Open-Source Workstations</h3>
+          <div class="meta">August 27, 2025 • 4 min read • Open-Source</div>
+          <p>Customize, repair, and evolve — together. Open hardware + software means long-term ownership and community-driven improvements.</p>
+          <p><a href="#post-open-source">Permalink</a> • <a href="https://github.com/tmsteph" target="_blank" rel="noopener">Explore repos</a></p>
+        </article>
+
+        <!-- POST 3 -->
+        <article class="post" id="post-tools">
+          <h3>Top Ergonomic Tools (2025)</h3>
+          <div class="meta">August 22, 2025 • 6 min read • Gear</div>
+          <p>Our curated list of input devices, stands, chairs, and hacks that actually help — with a focus on affordability and longevity.</p>
+          <p><a href="#post-tools">Permalink</a> • <a href="https://3dvr.tech/community/">Share your setup</a></p>
+        </article>
+      </section>
+
+      <aside class="sidebar">
+        <div class="panel">
+          <h4>Categories</h4>
+          <ul class="list">
+            <li><a href="#post-ergonomics">Ergonomics</a></li>
+            <li><a href="#post-open-source">Open-Source</a></li>
+            <li><a href="#post-tools">Tools</a></li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Quick Links</h4>
+          <ul class="list">
+            <li><a href="https://3dvr.tech/">Main Site</a></li>
+            <li><a href="https://portal.3dvr.tech">Portal</a></li>
+            <li><a href="https://3dvr.tech/subscribe/">Subscribe</a></li>
+            <li><a href="mailto:hello@3dvr.tech">Email Us</a></li>
+          </ul>
+        </div>
+      </aside>
     </div>
-    <div class="container" id="contact">
-        <h2>Contact Us</h2>
-        <form id="contact-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Your Name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Your Email" required>
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+  </main>
+
+  <!-- Contact -->
+  <section class="container section" id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contact</h2>
+    <div class="post">
+      <form id="contact-form" novalidate>
+        <label for="name">Name</label>
+        <input id="name" name="name" placeholder="Your name" required />
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
+        <button type="submit">Send Message</button>
+        <div class="mini">
+          <a href="mailto:hello@3dvr.tech">Or email: hello@3dvr.tech</a>
+          <a href="https://github.com/tmsteph" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </form>
     </div>
-    <footer>
-        <p>&copy; 2025 3DVR Tech Blog. All rights reserved.</p>
-    </footer>
-    <script>
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-        });
-    </script>
+  </section>
+
+  <footer class="container">
+    <p>&copy; 2025 3DVR Tech Blog. <a href="https://3dvr.tech/">3dvr.tech</a> • <a href="https://portal.3dvr.tech">Portal</a></p>
+  </footer>
+
+  <script>
+    // Sticky header height for safe anchor scrolling (foldables friendly)
+    function setHeaderHeight(){
+      const h=document.getElementById('site-header');
+      if(!h) return;
+      const px=Math.ceil(h.getBoundingClientRect().height);
+      document.documentElement.style.setProperty('--header-h',px+'px');
+    }
+    setHeaderHeight(); addEventListener('resize', setHeaderHeight);
+
+    // Smooth offset for in-page anchors
+    function smoothOffset(e){
+      const href=e.currentTarget.getAttribute('href');
+      if(!href||!href.startsWith('#')) return;
+      const target=document.querySelector(href); if(!target) return;
+      e.preventDefault();
+      const header=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||64;
+      const y=target.getBoundingClientRect().top+scrollY-(header+12);
+      scrollTo({top:y,behavior:'smooth'});
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',smoothOffset));
+
+    // Active nav highlight
+    const navLinks=[...document.querySelectorAll('[data-nav]')];
+    const ids=['home','posts','contact'];
+    const sections=ids.map(id=>document.getElementById(id)).filter(Boolean);
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const id=entry.target.id;
+          navLinks.forEach(l=>{
+            const hash=l.getAttribute('href').replace('#','');
+            l.classList.toggle('active', hash===id);
+          });
+        }
+      })
+    },{rootMargin:'-40% 0px -55% 0px',threshold:[0,.2,.6,1]});
+    sections.forEach(el=>io.observe(el));
+
+    // Simple mailto form (keeps static hosting simple)
+    const form=document.getElementById('contact-form');
+    form.addEventListener('submit',(event)=>{
+      event.preventDefault();
+      const name=form.name.value.trim();
+      const email=form.email.value.trim();
+      const message=form.message.value.trim();
+      if(!name||!email||!message){ alert('Please fill out all fields.'); return; }
+      const subject=encodeURIComponent('3DVR Blog — Contact');
+      const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      location.href=`mailto:hello@3dvr.tech?subject=${subject}&body=${body}`;
+    });
+  </script>
 </body>
 </html>
